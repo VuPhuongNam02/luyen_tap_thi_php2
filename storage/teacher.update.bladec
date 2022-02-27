@@ -1,0 +1,63 @@
+<?php $_shouldextend[1]=1; ?>
+<?php $this->startSection('content'); ?>
+ <form method="post" action="" enctype="multipart/form-data">
+
+ <p>
+ <label>name</label>
+ <input type="text" name="name" value="<?php echo \htmlentities(isset($_POST['name']) ? $_POST['name'] : $teacher->name, ENT_QUOTES, 'UTF-8', false); ?>"
+ class="form-control">
+ <span style="color: red"><?php echo \htmlentities(isset($error['name']) ? $error['name'] : '', ENT_QUOTES, 'UTF-8', false); ?></span>
+ </p>
+ <p>
+ <label>gender</label>
+ <select class="form-control" name="gender">
+ <option value="<?php echo \htmlentities($teacher->gender, ENT_QUOTES, 'UTF-8', false); ?>" hidden selected><?php echo \htmlentities(App\helper\helper::gender($teacher->gender), ENT_QUOTES, 'UTF-8', false); ?>
+
+ </option>
+ <option value="0">nam</option>
+ <option value="1">nữ</option>
+ <option value="3">khác</option>
+ </select>
+ </p>
+ <p>
+ <label>school</label>
+ <select class="form-control" name="school_id">
+ <option value="<?php echo \htmlentities($teacher->school_id, ENT_QUOTES, 'UTF-8', false); ?>" hidden selected><?php echo \htmlentities($teacher->school->name, ENT_QUOTES, 'UTF-8', false); ?></option>
+ <?php $__currentLoopData = $schools; $this->addLoop($__currentLoopData);$this->getFirstLoop();
+ foreach($__currentLoopData as $item): $loop = $this->incrementLoopIndices();  ?>
+ <option value="<?php echo \htmlentities($item->id, ENT_QUOTES, 'UTF-8', false); ?>"><?php echo \htmlentities($item->name, ENT_QUOTES, 'UTF-8', false); ?></option>
+ <?php endforeach; $this->popLoop(); $loop = $this->getFirstLoop(); ?>
+ </select>
+ </p>
+ <p>
+ <label>avatar</label>
+ <input type="file" name="avatar" class="form-control"
+ onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])">
+ <img id="blah" src="<?php echo \htmlentities(IMG, ENT_QUOTES, 'UTF-8', false); ?>/<?php echo \htmlentities($teacher->avatar, ENT_QUOTES, 'UTF-8', false); ?>" alt="your image" width="100" />
+
+ </p>
+ <p>
+ <label>major</label>
+ <input type="text" name="major" value="<?php echo \htmlentities(isset($_POST['major']) ? $_POST['major'] : $teacher->major, ENT_QUOTES, 'UTF-8', false); ?>"
+ class="form-control">
+ <span style="color: red"><?php echo \htmlentities(isset($error['major']) ? $error['major'] : '', ENT_QUOTES, 'UTF-8', false); ?></span>
+ </p>
+ <p>
+ <label>salary</label>
+ <input type="number" name="salary"
+ value="<?php echo \htmlentities(isset($_POST['salary']) ? $_POST['salary'] : $teacher->salary, ENT_QUOTES, 'UTF-8', false); ?>" class="form-control">
+ <span style="color: red"><?php echo \htmlentities(isset($error['salary']) ? $error['salary'] : '', ENT_QUOTES, 'UTF-8', false); ?></span>
+ </p>
+ <p>
+ <label>birthday</label>
+ <input type="date" name="birthday"
+ value="<?php echo \htmlentities(isset($_POST['birthday']) ? $_POST['birthday'] : $teacher->birthday, ENT_QUOTES, 'UTF-8', false); ?>" class="form-control">
+ <span style="color: red"><?php echo \htmlentities(isset($error['birthday']) ? $error['birthday'] : '', ENT_QUOTES, 'UTF-8', false); ?></span>
+ </p>
+ <p>
+ <button class="btn btn-warning" type="submit">Sửa</button>
+ </p>
+ </form>
+<?php $this->stopSection(); ?>
+
+<?php if (isset($_shouldextend[1])) { echo $this->runChild('frame'); } ?>
